@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شحن الجواهر — القناة 228000</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0b0b10;
+    --bg-soft: #101018;
+    --surface: #16161f;
+    --surface-2: #1d1d2a;
+    --line: rgba(255,255,255,0.08);
+    --text: #f4f3f7;
+    --text-muted: #8d8b9c;
+    --flame: #ff4d3d;
+    --flame-dim: #7a2a22;
+    --gold: #ffb627;
+    --gold-soft: rgba(255,182,39,0.14);
+    --green: #33d17a;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 20px 50px rgba(0,0,0,0.45);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--bg);
+    background-image:
+      radial-gradient(700px 400px at 85% -10%, rgba(255,77,61,0.14), transparent 60%),
+      radial-gradient(600px 400px at -10% 20%, rgba(255,182,39,0.08), transparent 60%);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    line-height: 1.6;
+  }
+  h1,h2,h3,.display{ font-family:'Tajawal', sans-serif; }
+  a{ color: inherit; text-decoration: none; }
+  button{ font-family: inherit; cursor: pointer; }
+  img{ max-width:100%; display:block; }
+  .container{ max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position: sticky; top:0; z-index: 40;
+    background: rgba(11,11,16,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 20px;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; }
+  .brand-mark{
+    width:36px; height:36px; border-radius:10px;
+    background: linear-gradient(145deg, var(--flame), #b8281a);
+    display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 6px 16px rgba(255,77,61,0.35);
+  }
+  .brand-mark svg{ width:18px; height:18px; }
+  .brand-name{ font-family:'Tajawal',sans-serif; font-weight:800; font-size:1.05rem; }
+  .brand-name span{ color: var(--gold); }
+  .channel-chip{
+    font-size:0.72rem; color: var(--text-muted);
+    background: var(--surface-2); border:1px solid var(--line);
+    padding: 3px 10px; border-radius: 999px; margin-inline-start:8px;
+    letter-spacing: 0.02em;
+  }
+  .nav-links{ display:flex; align-items:center; gap:22px; font-size:0.9rem; color:var(--text-muted); }
+  .nav-links a:hover{ color: var(--text); }
+  .nav-cta{
+    background: var(--surface-2); border:1px solid var(--line);
+    color: var(--text); padding: 8px 16px; border-radius: 999px; font-size:0.85rem;
+  }
+  @media (max-width:720px){ .nav-links{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding: 56px 0 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; inset:auto -10% -60% -10%;
+    height: 260px;
+    background: radial-gradient(ellipse at center, rgba(255,77,61,0.18), transparent 65%);
+    pointer-events:none;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items:center;
+  }
+  @media (max-width:860px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.78rem; color: var(--gold);
+    background: var(--gold-soft); border:1px solid rgba(255,182,39,0.3);
+    padding:6px 14px; border-radius:999px; margin-bottom:18px;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background: var(--green); box-shadow:0 0 8px var(--green); }
+
+  .hero h1{
+    font-size: clamp(2rem, 4.2vw, 3rem);
+    font-weight: 900; margin: 0 0 16px; line-height:1.25;
+  }
+  .hero h1 em{ font-style:normal; color: var(--flame); }
+  .hero p{ color: var(--text-muted); font-size:1.02rem; max-width: 46ch; margin: 0 0 26px; }
+
+  .trust-row{ display:flex; flex-wrap:wrap; gap: 22px; }
+  .trust-item{ display:flex; align-items:center; gap:8px; font-size:0.85rem; color: var(--text-muted); }
+  .trust-item svg{ width:16px; height:16px; color: var(--green); flex-shrink:0; }
+
+  /* Diamond signature graphic */
+  .diamond-stage{
+    position:relative; display:flex; align-items:center; justify-content:center;
+    height: 320px;
+  }
+  .diamond{
+    position:relative; width:150px; height:150px;
+    filter: drop-shadow(0 18px 34px rgba(255,182,39,0.25));
+    animation: float 5s ease-in-out infinite;
+  }
+  @keyframes float{ 0%,100%{ transform: translateY(0) rotate(0deg);} 50%{ transform: translateY(-14px) rotate(3deg);} }
+  .diamond svg{ width:100%; height:100%; }
+  .ring{
+    position:absolute; inset:-30px; border-radius:50%;
+    border: 1px dashed rgba(255,182,39,0.25);
+    animation: spin 18s linear infinite;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  .spark{
+    position:absolute; width:8px; height:8px; border-radius:50%;
+    background: var(--gold); box-shadow: 0 0 12px var(--gold);
+  }
+  .spark.s1{ top:10%; left:12%; animation: twinkle 2.4s ease-in-out infinite; }
+  .spark.s2{ bottom:16%; right:8%; animation: twinkle 2.4s ease-in-out infinite 0.8s; }
+  .spark.s3{ top:50%; right:0; animation: twinkle 2.4s ease-in-out infinite 1.4s; }
+  @keyframes twinkle{ 0%,100%{ opacity:0.2; transform: scale(0.8);} 50%{ opacity:1; transform: scale(1.2);} }
+
+  /* ---------- ID Card ---------- */
+  .id-card{
+    background: var(--surface);
+    border:1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 22px;
+    margin-top: 10px;
+  }
+  .id-card h3{ margin:0 0 4px; font-size:1.05rem; }
+  .id-card .sub{ color: var(--text-muted); font-size:0.85rem; margin:0 0 18px; }
+  .id-fields{ display:grid; grid-template-columns: 1.3fr 1fr; gap:12px; }
+  @media (max-width:520px){ .id-fields{ grid-template-columns:1fr; } }
+  .field label{ display:block; font-size:0.78rem; color: var(--text-muted); margin-bottom:6px; }
+  .field input, .field select{
+    width:100%; background: var(--bg-soft); border:1px solid var(--line);
+    color: var(--text); padding: 11px 13px; border-radius: var(--radius-sm);
+    font-family:'Cairo',sans-serif; font-size:0.92rem;
+  }
+  .id-actions{ margin-top:16px; display:flex; gap:10px; align-items:center; }
+  .btn{
+    border:none; border-radius: 999px; padding: 12px 22px;
+    font-weight:700; font-size:0.92rem; transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .btn:active{ transform: scale(0.97); }
+  .btn-primary{
+    background: linear-gradient(135deg, var(--flame), #c73424);
+    color:#fff; box-shadow: 0 10px 24px rgba(255,77,61,0.32);
+  }
+  .btn-primary:hover{ box-shadow: 0 12px 30px rgba(255,77,61,0.45); }
+  .btn-ghost{ background: transparent; color: var(--text-muted); border:1px solid var(--line); }
+
+  .player-preview{
+    display:none; align-items:center; gap:12px; margin-top:16px;
+    background: var(--bg-soft); border:1px solid rgba(51,209,122,0.3);
+    padding:10px 14px; border-radius: var(--radius-sm);
+  }
+  .player-preview.show{ display:flex; }
+  .avatar{
+    width:38px; height:38px; border-radius:50%;
+    background: linear-gradient(135deg, var(--gold), var(--flame));
+    display:flex; align-items:center; justify-content:center; font-weight:800; color:#0b0b10;
+  }
+  .player-preview .name{ font-weight:700; font-size:0.92rem; }
+  .player-preview .meta{ font-size:0.76rem; color: var(--text-muted); }
+  .verified-badge{
+    margin-inline-start:auto; color: var(--green); font-size:0.78rem;
+    display:flex; align-items:center; gap:5px;
+  }
+
+  /* ---------- Section heading ---------- */
+  .section{ padding: 46px 0; }
+  .section-head{ display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:26px; gap:16px; flex-wrap:wrap; }
+  .section-head h2{ font-size:1.5rem; margin:0 0 6px; }
+  .section-head p{ color: var(--text-muted); margin:0; font-size:0.92rem; }
+  .step-label{
+    font-size:0.75rem; color: var(--gold); background: var(--gold-soft);
+    border:1px solid rgba(255,182,39,0.3); padding:4px 12px; border-radius:999px;
+  }
+
+  /* ---------- Packages ---------- */
+  .package-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap:14px;
+  }
+  @media (max-width:920px){ .package-grid{ grid-template-columns: repeat(2,1fr); } }
+  @media (max-width:480px){ .package-grid{ grid-template-columns: 1fr 1fr; } }
+
+  .pkg{
+    position:relative;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 16px;
+    text-align:center;
+    transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .pkg:hover{ transform: translateY(-3px); border-color: rgba(255,182,39,0.35); }
+  .pkg input{ position:absolute; opacity:0; inset:0; width:100%; height:100%; cursor:pointer; margin:0; }
+  .pkg .badge{
+    position:absolute; top:-10px; right:12px;
+    background: var(--flame); color:#fff; font-size:0.68rem; font-weight:800;
+    padding:3px 9px; border-radius:999px;
+  }
+  .pkg-icon{ width:46px; height:46px; margin: 0 auto 10px; }
+  .pkg-amount{ font-weight:800; font-size:1.05rem; }
+  .pkg-bonus{ font-size:0.74rem; color: var(--gold); margin-top:2px; min-height:1em; }
+  .pkg-price{ margin-top:10px; font-size:0.92rem; color: var(--text-muted); font-weight:700; }
+  .pkg:has(input:checked){
+    border-color: var(--gold);
+    box-shadow: 0 0 0 1px var(--gold), 0 14px 30px rgba(255,182,39,0.18);
+    background: var(--surface-2);
+  }
+  .pkg:has(input:checked) .pkg-price{ color: var(--gold); }
+  .pkg:has(input:checked)::before{
+    content:"✓"; position:absolute; top:-10px; left:12px;
+    background: var(--gold); color:#0b0b10; width:20px; height:20px;
+    border-radius:50%; font-size:0.7rem; display:flex; align-items:center; justify-content:center; font-weight:900;
+  }
+
+  /* ---------- Payment methods ---------- */
+  .pay-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:12px; }
+  @media (max-width:760px){ .pay-grid{ grid-template-columns: repeat(2,1fr); } }
+  .pay-method{
+    position:relative;
+    background: var(--surface); border:1px solid var(--line); border-radius: var(--radius-sm);
+    padding: 14px; display:flex; align-items:center; gap:10px; font-size:0.88rem; font-weight:600;
+  }
+  .pay-method input{ position:absolute; inset:0; opacity:0; cursor:pointer; margin:0; }
+  .pay-method:has(input:checked){ border-color: var(--flame); background: var(--surface-2); }
+  .pay-icon{ width:26px; height:26px; flex-shrink:0; color: var(--text-muted); }
+  .pay-method:has(input:checked) .pay-icon{ color: var(--flame); }
+
+  /* ---------- Summary sticky bar ---------- */
+  .summary-bar{
+    position: sticky; bottom: 14px; z-index: 30;
+    margin-top: 30px;
+    background: var(--surface-2);
+    border:1px solid var(--line);
+    border-radius: 999px;
+    padding: 10px 10px 10px 20px;
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    box-shadow: var(--shadow);
+    flex-wrap: wrap;
+  }
+  .summary-info{ display:flex; align-items:center; gap:12px; font-size:0.9rem; }
+  .summary-info .amount{ font-weight:800; color: var(--gold); }
+  .summary-bar .btn-primary{ padding: 12px 28px; }
+
+  /* ---------- Footer ---------- */
+  footer{ border-top:1px solid var(--line); margin-top:50px; padding: 34px 0 26px; color: var(--text-muted); }
+  .footer-grid{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; font-size:0.82rem; }
+  .footer-note{ margin-top:18px; font-size:0.75rem; opacity:0.7; }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 3h12l3 5-9 13L3 8l3-5Z" fill="#fff"/></svg>
+        </div>
+        <div class="brand-name">GARENA <span>Store</span></div>
+        <span class="channel-chip">القناة DIVINE EGO </span>
+      </div>
+      <div class="nav-links">
+        <a href="#packages">الباقات</a>
+        <a href="#payment">الدفع</a>
+        <a href="#faq">الأسئلة الشائعة</a>
+      </div>
+      <a href="#packages" class="nav-cta">ابدأ الشحن</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span> تسليم فوري خلال دقائق</span>
+        <h1>اشحن <em>جواهرك</em> بأمان<br>وأسرع وقت ممكن</h1>
+        <p>أدخل معرف حسابك، اختر الباقة المناسبة، وأتمم الدفع من خلال طرق دفع محلية موثوقة — كل ذلك من صفحة واحدة.</p>
+        <div class="trust-row">
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 13 4 4L19 7"/></svg>
+            تشفير كامل للمدفوعات
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 13 4 4L19 7"/></svg>
+            دعم فني على مدار الساعة
+          </div>
+          <div class="trust-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 13 4 4L19 7"/></svg>
+            +50 ألف عملية ناجحة
+          </div>
+        </div>
+      </div>
+
+      <div class="diamond-stage">
+        <div class="ring"></div>
+        <span class="spark s1"></span>
+        <span class="spark s2"></span>
+        <span class="spark s3"></span>
+        <div class="diamond">
+          <svg viewBox="0 0 100 100">
+            <polygon points="50,5 90,35 74,95 26,95 10,35" fill="url(#g1)" stroke="#7a5b12" stroke-width="1"/>
+            <polygon points="50,5 90,35 50,45" fill="#ffd873"/>
+            <polygon points="50,5 10,35 50,45" fill="#ffb627"/>
+            <polygon points="10,35 50,45 26,95" fill="#e08f16"/>
+            <polygon points="90,35 50,45 74,95" fill="#c9760f"/>
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffe9b0"/>
+                <stop offset="1" stop-color="#ffb627"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="id-card">
+        <h3>الخطوة 1 — تحقق من الحساب</h3>
+        <p class="sub">أدخل معرف اللاعب (ID) ورقم السيرفر لتأكيد الحساب قبل الشحن</p>
+        <div class="id-fields">
+          <div class="field">
+            <label for="pid">معرف اللاعب</label>
+            <input id="pid" type="text" inputmode="numeric" placeholder=" مثال102938475678910:  ">
+          </div>
+          <div class="field">
+            <label for="server">السيرفر / المنطقة</label>
+            <select id="server">
+              <option>الشرق الأوسط</option>
+              <option>آسيا</option>
+              <option>أوروبا</option>
+              <option>أمريكا اللاتينية</option>
+            </select>
+          </div>
+        </div>
+        <div class="id-actions">
+          <button class="btn btn-primary" type="button" onclick="verifyPlayer()">تحقق من الحساب</button>
+          <button class="btn btn-ghost" type="button" onclick="resetPlayer()">مسح</button>
+        </div>
+        <div class="player-preview" id="playerPreview">
+          <div class="avatar">R</div>
+          <div>
+            <div class="name">الشرق الاوسط</div>
+            <div class="meta">معرف: <span id="pidEcho">—</span> ** المستوى </div>
+          </div>
+          <div class="verified-badge">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 13 4 4L19 7"/></svg>
+            تم التحقق
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section" id="packages">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="step-label">الخطوة 2</span>
+            <h2>اختر باقة الجواهر</h2>
+            <p>الأسعار تشمل جميع الرسوم، والتسليم تلقائي مباشرة إلى حسابك.</p>
+          </div>
+        </div>
+
+        <div class="package-grid" role="radiogroup" aria-label="باقات الجواهر">
+          <label class="pkg">
+            <input type="radio" name="package" value="100">
+            <svg class="pkg-icon" viewBox="0 0 100 100"><polygon points="50,10 85,38 70,90 30,90 15,38" fill="#3a3947" stroke="#59586a" stroke-width="2"/></svg>
+            <div class="pkg-amount">100 جوهرة</div>
+            <div class="pkg-bonus">&nbsp;</div>
+            <div class="pkg-price">9.99 DT</div>
+          </label>
+
+          <label class="pkg">
+            <input type="radio" name="package" value="310">
+            <span class="badge">+10%</span>
+            <svg class="pkg-icon" viewBox="0 0 100 100"><polygon points="50,10 85,38 70,90 30,90 15,38" fill="#3a3947" stroke="#59586a" stroke-width="2"/></svg>
+            <div class="pkg-amount">310 جوهرة</div>
+            <div class="pkg-bonus">+31 هدية</div>
+            <div class="pkg-price">29.99 DT</div>
+          </label>
+
+          <label class="pkg">
+            <input type="radio" name="package" value="520" checked>
+            <span class="badge">الأكثر طلبًا</span>
+            <svg class="pkg-icon" viewBox="0 0 100 100"><polygon points="50,10 85,38 70,90 30,90 15,38" fill="#3a3947" stroke="#59586a" stroke-width="2"/></svg>
+            <div class="pkg-amount">520 جوهرة</div>
+            <div class="pkg-bonus">+52 هدية</div>
+            <div class="pkg-price">49.99 DT</div>
+          </label>
+
+          <label class="pkg">
+            <input type="radio" name="package" value="1060">
+            <span class="badge">+18%</span>
+            <svg class="pkg-icon" viewBox="0 0 100 100"><polygon points="50,10 85,38 70,90 30,90 15,38" fill="#3a3947" stroke="#59586a" stroke-width="2"/></svg>
+            <div class="pkg-amount">1060 جوهرة</div>
+            <div class="pkg-bonus">+106 هدية</div>
+            <div class="pkg-price">99.99 DT</div>
+          </label>
+
+          <label class="pkg">
+            <input type="radio" name="package" value="2180">
+            <svg class="pkg-icon" viewBox="0 0 100 100"><polygon points="50,10 85,38 70,90 30,90 15,38" fill="#3a3947" stroke="#59586a" stroke-width="2"/></svg>
+            <div class="pkg-amount">2180 جوهرة</div>
+            <div class="pkg-bonus">+218 هدية</div>
+            <div class="pkg-price">199.99 DT</div>
+          </label>
+
+          <label class="pkg">
+            <input type="radio" name="package" value="5600">
+            <span class="badge">أفضل قيمة</span>
+            <svg class="pkg-icon" viewBox="0 0 100 100"><polygon points="50,10 85,38 70,90 30,90 15,38" fill="#3a3947" stroke="#59586a" stroke-width="2"/></svg>
+            <div class="pkg-amount">5600 جوهرة</div>
+            <div class="pkg-bonus">+560 هدية</div>
+            <div class="pkg-price">499.99 DT</div>
+          </label>
+
+          <label class="pkg">
+            <input type="radio" name="package" value="pass1">
+            <svg class="pkg-icon" viewBox="0 0 100 100"><polygon points="50,10 85,38 70,90 30,90 15,38" fill="#3a3947" stroke="#59586a" stroke-width="2"/></svg>
+            <div class="pkg-amount">بطاقة أسبوعية</div>
+            <div class="pkg-bonus">مكافآت يومية</div>
+            <div class="pkg-price">14.99 DT</div>
+          </label>
+
+          <label class="pkg">
+            <input type="radio" name="package" value="pass2">
+            <svg class="pkg-icon" viewBox="0 0 100 100"><polygon points="50,10 85,38 70,90 30,90 15,38" fill="#3a3947" stroke="#59586a" stroke-width="2"/></svg>
+            <div class="pkg-amount">بطاقة شهرية</div>
+            <div class="pkg-bonus">مكافآت يومية</div>
+            <div class="pkg-price">59.99 DT</div>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="payment">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <span class="step-label">الخطوة 3</span>
+            <h2>طريقة الدفع</h2>
+            <p>اختر الطريقة الأنسب لإتمام عملية الشحن.</p>
+          </div>
+        </div>
+        <div class="pay-grid" role="radiogroup" aria-label="طرق الدفع">
+          <label class="pay-method">
+            <input type="radio" name="pay" checked>
+            <svg class="pay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+            بطاقة ائتمان / مدى
+          </label>
+          <label class="pay-method">
+            <input type="radio" name="pay">
+            <svg class="pay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16v10H4z"/><path d="M4 7l8 6 8-6"/></svg>
+            STC Pay
+          </label>
+          <label class="pay-method">
+            <input type="radio" name="pay">
+            <svg class="pay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M4 8h16v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z"/></svg>
+            محافظ إلكترونية
+          </label>
+          <label class="pay-method">
+            <input type="radio" name="pay">
+            <svg class="pay-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10h18M3 6h18v12H3z"/></svg>
+            بطاقات شحن مسبقة
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="summary-bar">
+        <div class="summary-info">
+          <span>الباقة المختارة: <strong>520 جوهرة</strong></span>
+          <span class="amount">49.99 DT</span>
+        </div>
+        <button class="btn btn-primary" type="button">تأكيد الشحن الآن</button>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>الأسئلة الشائعة</h2>
+            <p>كل ما تحتاج معرفته قبل إتمام عملية الشحن.</p>
+          </div>
+        </div>
+        <div style="display:grid; gap:12px;">
+          <details class="id-card" style="padding:16px 20px;">
+            <summary style="cursor:pointer; font-weight:700;">كم تستغرق عملية التسليم؟</summary>
+            <p style="color:var(--text-muted); margin:10px 0 0;">يتم تسليم الجواهر بشكل تلقائي خلال دقائق من إتمام الدفع بنجاح.</p>
+          </details>
+          <details class="id-card" style="padding:16px 20px;">
+            <summary style="cursor:pointer; font-weight:700;">ماذا لو أدخلت معرف حساب خاطئ؟</summary>
+            <p style="color:var(--text-muted); margin:10px 0 0;">تأكد دائمًا من التحقق من الحساب قبل الدفع؛ لا يمكن استرجاع الجواهر بعد إرسالها لحساب خاطئ.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>© 2026 Riots Store — القنات NIRO IYED </div>
+      <div>جميع المدفوعات مشفّرة ومحمية</div>
+    </div>
+    <p class="footer-note"> هذا موقع صنع من قبل اياد مسعودي ليكون مكان مخصص للاعبين و ديما الرخ لا</p>
+  </footer>
+
+<script>
+  function verifyPlayer(){
+    const pid = document.getElementById('pid').value.trim();
+    const preview = document.getElementById('playerPreview');
+    if(!pid){
+      document.getElementById('pid').focus();
+      return;
+    }
+    document.getElementById('pidEcho').textContent = pid;
+    preview.classList.add('show');
+  }
+  function resetPlayer(){
+    document.getElementById('pid').value = '';
+    document.getElementById('playerPreview').classList.remove('show');
+  }
+</script>
+</body>
+</html>
